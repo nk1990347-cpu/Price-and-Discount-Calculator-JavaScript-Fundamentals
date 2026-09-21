@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="justify-items: center; align-items: center; background-color: darkgray; font-weight: bolder; font-style: italic;">
+    <h1> Price & Discount Calculator — JavaScript Fundamentals </h1>
+    <h2> By <span style="color: green;">Naveen Kumar S</span>.</h2>
+    <script>
+        document.querySelector("title").textContent = "NAVEEN KUMAR S";
+
+        function print(msg){
+            console.log(msg);
+        }
+
+        let name = "Moto G-64 5G";
+        let basePrice = 34499;
+        const discountPercent = 40;
+        const taxRate = 18;
+        const stockStatus = "limited";
+
+        // Calculate Discounted Price
+        function calculateDiscountedPrice(price, discount) {
+            return price - ((price * discount) / 100);
+        }
+
+        // Calculate Tax Amount
+        function calculateTax(price, rate) {
+            return (price * rate) / 100;
+        }
+
+        // Calculate Final-Price
+        function calculateFinalPrice(price, discount, rate) {
+            const discounted = calculateDiscountedPrice(price, discount);
+            const taxAmount = calculateTax(discounted, rate);
+            return Math.round(discounted + taxAmount);
+        }
+
+        // Check Shipping-Status
+        function isFreeShipping(finalPrice) {
+            return finalPrice >= 500 ? "Free Shipping" : "Shipping: Rs.49";
+        }
+
+        // Get Stock-Message
+        function getStockMessage(status) {
+            switch (status.toLowerCase()) {
+                case 'in_stock':
+                    return 'In Stock';
+                case 'limited':
+                    return 'Limited Stock';
+                case 'out_of_stock':
+                    return 'Out of Stock';
+                default:
+                    return 'Unknown Status';
+            }
+        }
+
+        function Final_OP() {
+            const discountedPrice = calculateDiscountedPrice(basePrice, discountPercent);
+            const taxAmount = calculateTax(discountedPrice, taxRate);
+            const finalPrice = calculateFinalPrice(basePrice, discountPercent, taxRate);
+            const shipping = isFreeShipping(finalPrice);
+            const status = getStockMessage(stockStatus);
+
+            print(
+                "--- PRICE SUMMARY ---" +
+                "\n\nProduct Name: " + name +
+                "\n\nBase Price: Rs." + basePrice +
+                "\n\nDiscounted Price: Rs." + discountedPrice +
+                "\n\nTax Amount: Rs." + taxAmount.toFixed(2) +
+                "\n\nFinal Price: Rs." + finalPrice +
+                "\n\nShipping: " + shipping +
+                "\n\nStock Status: " + status
+            );
+        }
+
+        Final_OP();
+    </script>
+</body>
+</html>
